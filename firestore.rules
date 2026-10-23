@@ -1,0 +1,31 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Faculty collection — anyone can read (for dropdowns), only admin writes via client
+    match /faculty/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    // Students collection — anyone can create (signup), read for login
+    match /students/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    // Reports collection — students create, faculty approves, anyone reads
+    match /reports/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Documents collection — word processor documents saved by students and faculty
+    match /documents/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
+
